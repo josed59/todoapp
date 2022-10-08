@@ -1,0 +1,25 @@
+.TodoSearch-container{
+    padding: 6px 2px;
+    background-color: white;
+    border: 1px solid #777373;
+    border-radius: 15px;
+    max-width: 350px;
+    text-align: center;
+    margin: auto;
+    box-shadow: 0 1px 6px 0 rgba(32, 33, 36, .28);
+}
+
+.TodoSearch-container:hover{
+    box-shadow: 0 1px 6px 0 #2796f3;
+     
+ }
+
+.TodoSearch-container .TodoSearch{
+    width: 95%;
+    border: none;
+    outline: none;
+    border: 0;
+    text-align: center;
+    
+}
+
