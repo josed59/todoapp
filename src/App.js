@@ -15,17 +15,27 @@ const defautTodos = [
 function App() {
   const [search , setSearch] = React.useState('');
   const [todos,setTodos] = React.useState(defautTodos);
+  const todosCompleted = todos.filter(todo => !!todo.complete).length;
+  const count = todos.length;
+  let todoFilter = todos.filter(todo => {
+    const todoText = todo.text.toLowerCase();
+    const  searchText= search.toLowerCase();
+    return todoText.includes(searchText);
+  });
 
   return (
     <React.Fragment>
-      <TodoCounter />
+      <TodoCounter 
+        todosCompleted = {todosCompleted}
+        count = {count}
+      />
       <TodoSearch 
         search ={ search }
         setSearch ={setSearch}
       />
       
       <TodoList>
-          { todos.map( todo =>(
+          { todoFilter.map( todo =>(
             <TodoItem 
               key={todo.text} 
               text={todo.text} 
