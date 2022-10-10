@@ -17,11 +17,16 @@ function App() {
   const [todos,setTodos] = React.useState(defautTodos);
   const todosCompleted = todos.filter(todo => !!todo.complete).length;
   const count = todos.length;
-  let todoFilter = todos.filter(todo => {
-    const todoText = todo.text.toLowerCase();
-    const  searchText= search.toLowerCase();
-    return todoText.includes(searchText);
-  });
+  let todoFilter = [];
+  if (search >=1){
+    let todoFilter = todos.filter(todo => {
+      const todoText = todo.text.toLowerCase();
+      const  searchText= search.toLowerCase();
+      return todoText.includes(searchText);
+    });
+   }else{
+    todoFilter = todos;
+   }
 
   return (
     <React.Fragment>
