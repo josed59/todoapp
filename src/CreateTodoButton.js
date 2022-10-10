@@ -2,8 +2,17 @@ import React  from "react";
 import './CreateTodoButton.css'
 
 function CreateTodoButton (props){
+    const onClick = () => {
+        alert('Se debe agregar una nueva tarea')
+    };
+
     return (
-        <button className="CreateTodoButton">+</button>
+        <button 
+        onClick={onClick}
+        className="CreateTodoButton"
+        >
+            +
+        </button>
     )
 }
 
