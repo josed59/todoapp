@@ -21,7 +21,7 @@
     height: 50px;
     position: absolute;
     left: 0;
-    background-image: url('./images/check-mark.png');
+    background-image: url('../images/check-mark.png');
     background-repeat: no-repeat;
     background-size: cover;
     cursor: pointer;
@@ -33,7 +33,7 @@
     height: 25px;
     position: absolute;
     right: 0;
-    background-image: url('./images/remove.png');
+    background-image: url('../images/remove.png');
     background-repeat: no-repeat;
     background-size: cover;
     cursor: pointer;
