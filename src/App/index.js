@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { AppUI } from "./AppUI";
 
 import './index.css';
@@ -10,30 +10,53 @@ import './index.css';
 ]; */
 
 function useLocalStorage(itemName, initialValue) {
+
+  const [error,setError] = React.useState(false);
+  const [loading,setLoading] = React.useState(true);
+  const [items , setItems] = React.useState(initialValue);
+
+  React.useEffect(() => {
+    setTimeout(() => {
+      try{
+        const localStorageItems  = localStorage.getItem(itemName);
+        let parsedItems;
+
+        if(!localStorageItems){
+            localStorage.setItem(itemName,JSON.stringify(initialValue));
+            parsedItems = initialValue;
+          }else{
+            parsedItems = JSON.parse(localStorageItems);
+          }
+        setItems(parsedItems);
+
+
+      }catch(error){
+        setError(error);
+      }finally {
+        // También podemos utilizar la última parte del try/cath (finally) para terminar la carga
+        setLoading(false);
+      }
+      
+    },1000)
+
+  },[items]);
   
-  const localStorageItems  = localStorage.getItem(itemName);
-  let parsedItems;
-  
-
-  if(!localStorageItems){
-    localStorage.setItem(itemName,JSON.stringify(initialValue));
-    parsedItems = initialValue;
-  }else{
-    parsedItems = JSON.parse(localStorageItems);
-  }
-
-  const [items , setItems] = React.useState(parsedItems);
-
-   //se incluye actualizacion de daItems y react state
-   const saveItem = (newItems) => {
+  const saveItem = (newItems) => {
+    try{ 
       const todosStringified = JSON.stringify(newItems);
       localStorage.setItem(itemName,todosStringified);
       setItems(newItems);
-   }
-   return [
+    }
+    catch(e){
+        setError(error);
+    }
+  }
+   return {
     items,
     saveItem,
-  ];
+    loading,
+    error
+  };
 
 
 
@@ -41,7 +64,12 @@ function useLocalStorage(itemName, initialValue) {
 
 function App() {
    // Desestructuramos los datos que retornamos de nuestro custom hook, y le pasamos los argumentos que necesitamos (nombre y estado inicial)
-  const [todos, saveTodos] = useLocalStorage('TODOS_V1', []);
+   const {
+    items: todos,
+    saveItem: saveTodos,
+    loading,
+    error,
+  } = useLocalStorage('TODOS_V1', []);
   const [search, setSearch] = React.useState('');
   const todosCompleted = todos.filter(todo => !!todo.complete).length;
   const count = todos.length;
@@ -81,6 +109,8 @@ function App() {
     todoFilter = {todoFilter}
     completedTodo={completedTodo}
     deletedTodo={deletedTodo}
+    loading={loading}
+    error={error}
    />
   );
 }

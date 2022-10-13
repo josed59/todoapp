@@ -12,7 +12,9 @@ function AppUI({
     setSearch,
     todoFilter,
     completedTodo,
-    deletedTodo
+    deletedTodo,
+    loading,
+    error
 
 }) {
     return (
@@ -25,7 +27,10 @@ function AppUI({
           search ={ search }
           setSearch ={setSearch}
         />
-        
+
+        {error && <p>Desespérate, hubo un error...</p>}
+        {loading && <p>Estamos cargando, no desesperes...</p>}
+        {(!loading && !todoFilter.length) && <p>¡Crea tu primer TODO!</p>}
         <TodoList>
             { todoFilter.map( todo =>(
               <TodoItem 
