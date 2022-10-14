@@ -1,4 +1,5 @@
 import React from "react";
+import { TodoContext } from '../TodoContext';
 import { TodoCounter } from '../TodoCounter';
 import { TodoSearch } from '../TodoSearch';
 import { TodoList } from '../TodoList';
@@ -19,20 +20,23 @@ function AppUI({
 }) {
     return (
         <React.Fragment>
-        <TodoCounter 
-          todosCompleted = {todosCompleted}
-          count = {count}
-        />
-        <TodoSearch 
-          search ={ search }
-          setSearch ={setSearch}
-        />
+        <TodoCounter/>
+        <TodoSearch/>
 
-        {error && <p>Desespérate, hubo un error...</p>}
-        {loading && <p>Estamos cargando, no desesperes...</p>}
-        {(!loading && !todoFilter.length) && <p>¡Crea tu primer TODO!</p>}
-        <TodoList>
-            { todoFilter.map( todo =>(
+        <TodoContext.Consumer>
+
+        {({
+          error,
+          loading,
+          todoFilter,
+          completedTodo,
+          deletedTodo
+        }) => (
+            <TodoList>
+             {error && <p>Desespérate, hubo un error...</p>}
+             {loading && <p>Estamos cargando, no desesperes...</p>}
+             {(!loading && !todoFilter.length) && <p>¡Crea tu primer TODO!</p>}
+             { todoFilter.map( todo =>(
               <TodoItem 
                 key={todo.text} 
                 text={todo.text} 
@@ -42,6 +46,10 @@ function AppUI({
               />
             ))}
         </TodoList>
+        )}
+
+        </TodoContext.Consumer>
+       
         <CreateTodoButton />
       </React.Fragment>
 
