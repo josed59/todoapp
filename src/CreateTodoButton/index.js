@@ -3,7 +3,12 @@ import './CreateTodoButton.css'
 
 function CreateTodoButton (props){
     const onClick = () => {
-        alert('Se debe agregar una nueva tarea')
+        if (!props.modal){
+            props.setOpenModal(true);
+        }else{
+            props.setOpenModal(false);
+        }
+        
     };
 
     return (
