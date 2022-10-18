@@ -1,6 +1,6 @@
 {
   "name": "todoapp",
-  "homepage":" https://josed59.github.io/todoapp/",
+  "homepage":" https://josed59.github.io/todoapp",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
