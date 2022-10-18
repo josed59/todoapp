@@ -1,0 +1,10 @@
+.todoLoadingContainer {
+    width: 550px;
+    height: auto;
+    background-color: white;
+    padding: auto;
+    text-align: center;
+    margin: 16px auto;
+    border: 1px solid #777373;
+    box-shadow: 0 1px 6px 0 rgb(32 33 36 / 28%);
+}
