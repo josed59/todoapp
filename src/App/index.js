@@ -1,6 +1,17 @@
 import React, { useState } from "react";
-import {TodoProvider} from '../TodoContext';
-import { AppUI } from "./AppUI";
+import { TodoCounter } from '../TodoCounter';
+import { TodoSearch } from '../TodoSearch';
+import { TodoList } from '../TodoList';
+import { CreateTodoButton } from '../CreateTodoButton';
+import { TodoItem } from '../TodoItem';
+import { Modal } from '../Modal';
+import { Form } from '../TodoForm';
+import {MyLoader} from '../TodoLoading';
+import {TodoEmpty} from '../TodoEmpty';
+import {TodoError} from '../TodoError';
+import {TodoHearder} from '../TodoHeader';
+import { useTodos } from './useTodos';
+
 
 import './index.css';
 
@@ -13,13 +24,66 @@ import './index.css';
 
 
 function App() {
-  
+  const {
+    error,
+    loading,
+    todoFilter,
+    completedTodo,
+    deletedTodo,
+    modal,
+    setModal,
+    todosCompleted,
+    count,
+    search , 
+    setSearch,
+    addTodo
+  } = useTodos();
+    return (
+        <React.Fragment>
+          <TodoHearder>
+            <TodoCounter
+              todosCompleted = {todosCompleted}
+              count= {count}
+            />
+            <TodoSearch
+              search  = {search}
+              setSearch = {setSearch}
+            />
+          </TodoHearder>
 
-  return (
-    <TodoProvider>
-    <AppUI />
-  </TodoProvider>
-  );
+            <TodoList>
+             {error && <TodoError />}
+             {loading && 
+             new Array(3).fill().map((item, index)=>(
+              <MyLoader key={index} /> ))
+             }
+             {(!loading && !todoFilter.length) && <TodoEmpty />}
+             { todoFilter.map( todo =>(
+              <TodoItem 
+                key={todo.text} 
+                text={todo.text} 
+                completed={todo.complete}
+                onCompleted = {() => completedTodo(todo.text)}
+                onDeleted = {() => deletedTodo(todo.text)}
+              />
+            ))}
+        </TodoList>
+          {!!modal && 
+            <Modal>
+               <Form 
+               addTodo = {addTodo}
+               setModal = {setModal}
+               />
+            </Modal>
+            }
+       
+        <CreateTodoButton 
+          setOpenModal={setModal}
+          modal={modal}
+        />
+      </React.Fragment>
+
+    );
 }
 
 export default App;

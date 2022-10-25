@@ -1,9 +1,8 @@
 import React from "react";
 import {useLocalStorage} from './useLocalStorage';
 
-const TodoContext = React.createContext();
 
-function TodoProvider(props){
+function useTodos(){
  // Desestructuramos los datos que retornamos de nuestro custom hook, y le pasamos los argumentos que necesitamos (nombre y estado inicial)
  const {
     items: todos,
@@ -55,7 +54,7 @@ function TodoProvider(props){
    };
 
    return(
-    <TodoContext.Provider value={{
+    {
         todosCompleted ,
         count ,
         search ,
@@ -68,13 +67,11 @@ function TodoProvider(props){
         modal,
         setModal,
         addTodo
-    }}>
-        {props.children}
-      </TodoContext.Provider>
+    }
 
    );
     
 
 }
 
-export {TodoProvider , TodoContext};
+export {useTodos};
