@@ -51,14 +51,18 @@ function App() {
             />
           </TodoHearder>
 
-            <TodoList>
-             {error && <TodoError />}
-             {loading && 
-             new Array(3).fill().map((item, index)=>(
+          <TodoList 
+          error = {error}
+          loading = {loading}
+          todoFilter = {todoFilter}
+          OnError = {()=> <TodoError />}
+          OnLoading = {()=> 
+            new Array(3).fill().map((item, index)=>(
               <MyLoader key={index} /> ))
-             }
-             {(!loading && !todoFilter.length) && <TodoEmpty />}
-             { todoFilter.map( todo =>(
+          }
+          OnEmpty = {()=> <TodoEmpty />}
+          render = {
+            todo =>(
               <TodoItem 
                 key={todo.text} 
                 text={todo.text} 
@@ -66,8 +70,10 @@ function App() {
                 onCompleted = {() => completedTodo(todo.text)}
                 onDeleted = {() => deletedTodo(todo.text)}
               />
-            ))}
-        </TodoList>
+            )
+          }
+
+          />
           {!!modal && 
             <Modal>
                <Form 
