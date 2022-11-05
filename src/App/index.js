@@ -40,7 +40,9 @@ function App() {
   } = useTodos();
     return (
         <React.Fragment>
-          <TodoHearder>
+          <TodoHearder
+            loading={loading}
+          >
             <TodoCounter
               todosCompleted = {todosCompleted}
               count= {count}
@@ -52,28 +54,42 @@ function App() {
           </TodoHearder>
 
           <TodoList 
-          error = {error}
-          loading = {loading}
-          todoFilter = {todoFilter}
-          OnError = {()=> <TodoError />}
-          OnLoading = {()=> 
-            new Array(3).fill().map((item, index)=>(
-              <MyLoader key={index} /> ))
-          }
-          OnEmpty = {()=> <TodoEmpty />}
-          render = {
-            todo =>(
-              <TodoItem 
-                key={todo.text} 
-                text={todo.text} 
-                completed={todo.complete}
-                onCompleted = {() => completedTodo(todo.text)}
-                onDeleted = {() => deletedTodo(todo.text)}
-              />
-            )
-          }
-
-          />
+            error = {error}
+            loading = {loading}
+            todoFilter = {todoFilter}
+            count = {count}
+            textSearched = {search}
+            OnError = {()=> <TodoError />}
+            OnLoading = {()=> 
+              new Array(3).fill().map((item, index)=>(
+                <MyLoader key={index} /> ))
+            }
+            OnEmpty = {()=> <TodoEmpty />}
+            OnEmptySearch = {(textSearched) => <p> No existe resultados para {textSearched}</p>}
+            render = {
+              todo =>(
+                <TodoItem 
+                  key={todo.text} 
+                  text={todo.text} 
+                  completed={todo.complete}
+                  onCompleted = {() => completedTodo(todo.text)}
+                  onDeleted = {() => deletedTodo(todo.text)}
+                />
+              )
+            }
+          >
+            {/* {
+              todo =>(
+                <TodoItem 
+                  key={todo.text} 
+                  text={todo.text} 
+                  completed={todo.complete}
+                  onCompleted = {() => completedTodo(todo.text)}
+                  onDeleted = {() => deletedTodo(todo.text)}
+                />
+              )
+            } */}
+          </TodoList>
           {!!modal && 
             <Modal>
                <Form 
