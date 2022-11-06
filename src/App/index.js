@@ -11,6 +11,7 @@ import {TodoEmpty} from '../TodoEmpty';
 import {TodoError} from '../TodoError';
 import {TodoHearder} from '../TodoHeader';
 import { useTodos } from './useTodos';
+import { ChangealertWithStorageListener } from "../ChangeAlert";
 
 
 import './index.css';
@@ -36,7 +37,8 @@ function App() {
     count,
     search , 
     setSearch,
-    addTodo
+    addTodo,
+    sincronizeTodos
   } = useTodos();
     return (
         <React.Fragment>
@@ -62,7 +64,7 @@ function App() {
             OnError = {()=> <TodoError />}
             OnLoading = {()=> 
               new Array(3).fill().map((item, index)=>(
-                <MyLoader key={index} /> ))
+                <MyLoader key={index} viewBox="0 0 400 160" /> ))
             }
             OnEmpty = {()=> <TodoEmpty />}
             OnEmptySearch = {(textSearched) => <p> No existe resultados para {textSearched}</p>}
@@ -90,6 +92,9 @@ function App() {
               )
             } */}
           </TodoList>
+          <ChangealertWithStorageListener 
+            sincronize = {sincronizeTodos}
+          />
           {!!modal && 
             <Modal>
                <Form 

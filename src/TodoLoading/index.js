@@ -9,6 +9,7 @@ const MyLoader = () => (
             width={550}
             height={50}
             viewBox="0 5 550 50"
+            style={{ width: '100%' }}
             backgroundColor="#f3f3f3"
             foregroundColor="#ecebeb"
         >
