@@ -11,7 +11,7 @@ import {TodoEmpty} from '../TodoEmpty';
 import {TodoError} from '../TodoError';
 import {TodoHearder} from '../TodoHeader';
 import { useTodos } from './useTodos';
-import { ChangealertWithStorageListener } from "../ChangeAlert";
+import { Changealert } from "../ChangeAlert";
 
 
 import './index.css';
@@ -92,7 +92,7 @@ function App() {
               )
             } */}
           </TodoList>
-          <ChangealertWithStorageListener 
+          <Changealert 
             sincronize = {sincronizeTodos}
           />
           {!!modal && 
